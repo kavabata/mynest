@@ -16,6 +16,6 @@ export class Room {
   @Field({ nullable: true })
   mode: Mode;
 
-  @Field({ nullable: true })
-  devices: [Device];
+  // @Field({ nullable: true })
+  // devices: [Device];
 }

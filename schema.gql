@@ -13,19 +13,38 @@ type Device {
 """Date custom scalar type"""
 scalar Date
 
+type Mode {
+  id: ID!
+  name: String!
+}
+
+type Room {
+  id: ID!
+  name: String!
+  mode_id: String
+  mode: Mode
+}
+
 type Query {
   device(id: Float!): Device!
   devices(skip: Int = 0, take: Int = 25): [Device!]!
+  rooms(skip: Int = 0, take: Int = 25): [Room!]!
 }
 
 type Mutation {
   addDevice(newDeviceData: NewDeviceInput!): Device!
   removeDevice(force: Boolean!, id: Float!): Boolean!
+  addRoom(newRoomData: NewRoomInput!): Room!
+  removeRoom(id: Float!): Boolean!
 }
 
 input NewDeviceInput {
   name: String!
   key: String
+}
+
+input NewRoomInput {
+  name: String!
 }
 
 type Subscription {
