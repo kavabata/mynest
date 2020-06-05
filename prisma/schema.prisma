@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model controllers {
+  controller         String?
+  controller_default Float?
+  device_id          Int?
+  id                 Int     @default(autoincrement()) @id
+  mode_id            Int     @default(1)
+  name               String?
+}
+
+model controllers_states {
+  controller_id Int?
+  device_id     Int?
+  id            Int       @default(autoincrement()) @id
+  state         String?
+  updated       DateTime?
+
+  @@unique([controller_id, device_id], name: "device")
+}
+
+model devices {
+  created DateTime?
+  id      Int       @default(autoincrement()) @id
+  ip      String?
+  key     String?
+  name    String?
+  status  String?
+}
+
+model modes {
+  id   Int     @default(autoincrement()) @id
+  name String?
+}
+
+model rooms {
+  id           Int       @default(autoincrement()) @id
+  mode_id      Int?
+  mode_updated DateTime?
+  name         String?
+}
+
+model rooms_devices {
+  device_id Int?
+  id        Int  @default(autoincrement()) @id
+  room_id   Int?
+}
+
+model scenarios {
+  controller_delay Int?
+  controller_id    Int?
+  controller_value Int?
+  id               Int    @default(autoincrement()) @id
+  mode_id          Int?
+  sensor_end       Float?
+  sensor_id        Int?
+  sensor_start     Float?
+  sort_order       Int?
+}
+
+model sensors {
+  device_id    Int?
+  id           Int     @default(autoincrement()) @id
+  room_id      Int?
+  sensor_delay Int?
+  type         String?
+}
+
+model sensors_logs {
+  created   DateTime?
+  device_id Int?
+  id        Int       @default(autoincrement()) @id
+  room_id   Int?
+  sensor_id Int?
+  value     String?
+}
+
+model sensors_states {
+  device_id Int?
+  id        Int       @default(autoincrement()) @id
+  room_id   Int?
+  sensor_id Int?
+  updated   DateTime?
+  value     String?
+
+  @@unique([sensor_id, device_id, room_id], name: "device")
+}

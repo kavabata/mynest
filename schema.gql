@@ -1,0 +1,33 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Device {
+  id: ID!
+  name: String!
+  key: String
+  ip: String
+  created: Date
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type Query {
+  device(id: Float!): Device!
+  devices(skip: Int = 0, take: Int = 25): [Device!]!
+}
+
+type Mutation {
+  addDevice(newDeviceData: NewDeviceInput!): Device!
+  removeDevice(force: Boolean!, id: Float!): Boolean!
+}
+
+input NewDeviceInput {
+  name: String!
+  key: String
+}
+
+type Subscription {
+  deviceAdded: Device!
+}
