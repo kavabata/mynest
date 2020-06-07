@@ -1,5 +1,5 @@
-import { Args, ArgsType, Field, InputType, registerEnumType } from '@nestjs/graphql';
-import { IsOptional, Length, MaxLength } from 'class-validator';
+import { ArgsType, Field, InputType, registerEnumType } from '@nestjs/graphql';
+import { IsOptional, MaxLength } from 'class-validator';
 import { PaginateArgs } from './common.args';
 
 export enum ControllerState {

@@ -19,8 +19,8 @@ model controllers {
   devices    devices @relation(fields: [device_id], references: [id])
   modes      modes?  @relation(fields: [mode_id], references: [id])
 
-  @@index([device_id], name: "device")
-  @@index([mode_id], name: "mode")
+  @@index([device_id], name: "controllerDevice")
+  @@index([mode_id], name: "controllerMode")
 }
 
 model controllers_states {
@@ -34,13 +34,14 @@ model controllers_states {
 }
 
 model devices {
-  created     DateTime?
-  id          Int           @default(autoincrement()) @id
-  ip          String?
-  key         String?
-  name        String?
-  status      Int           @default(0)
-  controllers controllers[]
+  created        DateTime?
+  id             Int              @default(autoincrement()) @id
+  ip             String?
+  key            String?
+  name           String?
+  status         Int              @default(0)
+  controllers    controllers[]
+  sensors_states sensors_states[]
 }
 
 model modes {
@@ -50,10 +51,11 @@ model modes {
 }
 
 model rooms {
-  id           Int       @default(autoincrement()) @id
-  mode_id      Int?
-  mode_updated DateTime?
-  name         String?
+  id             Int              @default(autoincrement()) @id
+  mode_id        Int?
+  mode_updated   DateTime?
+  name           String?
+  sensors_states sensors_states[]
 }
 
 model rooms_devices {
@@ -75,11 +77,12 @@ model scenarios {
 }
 
 model sensors {
-  device_id    Int?
-  id           Int     @default(autoincrement()) @id
-  room_id      Int?
-  sensor_delay Int?
-  type         String?
+  device_id      Int?
+  id             Int              @default(autoincrement()) @id
+  room_id        Int?
+  sensor_delay   Int?
+  type           String?
+  sensors_states sensors_states[]
 }
 
 model sensors_logs {
@@ -92,12 +95,17 @@ model sensors_logs {
 }
 
 model sensors_states {
-  device_id Int?
+  device_id Int
   id        Int       @default(autoincrement()) @id
   room_id   Int?
-  sensor_id Int?
+  sensor_id Int
   updated   DateTime?
   value     String?
+  devices   devices   @relation(fields: [device_id], references: [id])
+  rooms     rooms?    @relation(fields: [room_id], references: [id])
+  sensors   sensors   @relation(fields: [sensor_id], references: [id])
 
+  @@index([device_id], name: "sensorDevice")
+  @@index([room_id], name: "sensorRoom")
   @@unique([sensor_id, device_id, room_id], name: "device")
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ControllerArgs, ControllerState, NewControllerInput } from './dto/controllers.args';
+import { ControllerArgs, NewControllerInput } from './dto/controllers.args';
 import { DeviceController } from './models/controller.model';
 
 import { PrismaClient } from '@prisma/client';
@@ -31,10 +31,7 @@ export class ControllerService {
   async findAll(controllerArgs: ControllerArgs): Promise<DeviceController[]> {
     const d = prisma.controllers.findMany({
       ...controllerArgs,
-      include: {
-        devices: true,
-        modes: true
-      }
+      include: { devices: true, modes: true }
     });
 
     console.log('findAll: ', controllerArgs);
