@@ -34,14 +34,14 @@ model controllers_states {
 }
 
 model devices {
-  created        DateTime?
-  id             Int              @default(autoincrement()) @id
-  ip             String?
-  key            String?
-  name           String?
-  status         Int              @default(0)
-  controllers    controllers[]
-  sensors_states sensors_states[]
+  created     DateTime?
+  id          Int           @default(autoincrement()) @id
+  ip          String?
+  key         String?
+  name        String?
+  status      Int           @default(0)
+  controllers controllers[]
+  sensors     sensors[]
 }
 
 model modes {
@@ -51,11 +51,11 @@ model modes {
 }
 
 model rooms {
-  id             Int              @default(autoincrement()) @id
-  mode_id        Int?
-  mode_updated   DateTime?
-  name           String?
-  sensors_states sensors_states[]
+  id           Int       @default(autoincrement()) @id
+  mode_id      Int?
+  mode_updated DateTime?
+  name         String?
+  sensors      sensors[]
 }
 
 model rooms_devices {
@@ -78,11 +78,19 @@ model scenarios {
 
 model sensors {
   device_id      Int?
+  enum_type      String?
   id             Int              @default(autoincrement()) @id
   room_id        Int?
   sensor_delay   Int?
-  type           String?
+  state          String?
+  type           Int
+  updated        DateTime?
+  devices        devices?         @relation(fields: [device_id], references: [id])
+  rooms          rooms?           @relation(fields: [room_id], references: [id])
   sensors_states sensors_states[]
+
+  @@index([device_id], name: "sensorDevice")
+  @@index([room_id], name: "sensorRoom")
 }
 
 model sensors_logs {
@@ -101,8 +109,6 @@ model sensors_states {
   sensor_id Int
   updated   DateTime?
   value     String?
-  devices   devices   @relation(fields: [device_id], references: [id])
-  rooms     rooms?    @relation(fields: [room_id], references: [id])
   sensors   sensors   @relation(fields: [sensor_id], references: [id])
 
   @@index([device_id], name: "sensorDevice")

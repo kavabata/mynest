@@ -58,18 +58,43 @@ enum ControllerState {
   DELETED
 }
 
+type Sensor {
+  id: ID!
+  devices: Device
+  rooms: Room
+  type: SensorType!
+  sensor_delay: String!
+  state: String
+}
+
+enum SensorType {
+  TIME
+  PIR
+  LIGHTLEVEL
+  TEMPERATURE
+  HUMIDITY
+}
+
 type Query {
   device(id: Float!): Device!
   devices(skip: Float = 0, take: Int = 25, status: DeviceStatus): [Device!]!
   rooms(skip: Float = 0, take: Int = 25): [Room!]!
   controller(id: Float!): DeviceController!
   controllers(skip: Float = 0, take: Int = 25, where: ControllerWhereArgs): [DeviceController!]!
+  sensor(id: Float!): Sensor!
+  sensors(skip: Float = 0, take: Int = 25, where: SensorWhereArgs): [Sensor!]!
 }
 
 input ControllerWhereArgs {
   state: ControllerState
   type: ControllerType
   mode_id: Float
+  device_id: Float
+}
+
+input SensorWhereArgs {
+  type: SensorType
+  room_id: Float
   device_id: Float
 }
 
@@ -80,6 +105,9 @@ type Mutation {
   removeRoom(id: Float!): Boolean!
   addController(newControllerData: NewControllerInput!): DeviceController!
   removeController(id: Float!): Boolean!
+  addSensor(newSensorData: NewSensorInput!): Sensor!
+  addSensorState(type: SensorType!, key: String!, value: Float!): Sensor!
+  removeSensor(id: Float!): Boolean!
 }
 
 input NewDeviceInput {
@@ -96,6 +124,13 @@ input NewControllerInput {
   type: ControllerType
   init: Float!
   device: Float!
+}
+
+input NewSensorInput {
+  type: SensorType!
+  sensor_delay: Float!
+  device: Float!
+  room: Float!
 }
 
 type Subscription {
