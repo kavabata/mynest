@@ -1,4 +1,4 @@
-import { ArgsType, Field, InputType, registerEnumType } from '@nestjs/graphql';
+import { Args, ArgsType, Field, InputType, registerEnumType } from '@nestjs/graphql';
 import { IsOptional, Length, MaxLength } from 'class-validator';
 import { PaginateArgs } from './common.args';
 
@@ -21,6 +21,7 @@ registerEnumType(ControllerType, {
   name: 'ControllerType',
 });
 
+
 @InputType()
 export class NewControllerInput {
   @Field()
@@ -38,8 +39,8 @@ export class NewControllerInput {
   device: number;
 }
 
-@ArgsType()
-export class ControllerArgs extends PaginateArgs {
+@InputType()
+class ControllerWhereArgs {
   @Field(type => ControllerState, { nullable: true })
   state: ControllerState
 
@@ -47,8 +48,14 @@ export class ControllerArgs extends PaginateArgs {
   type: ControllerType
 
   @Field({ nullable: true })
-  mode: number;
+  mode_id: number;
 
   @Field({ nullable: true })
-  device: number;
+  device_id: number;
+}
+
+@ArgsType()
+export class ControllerArgs extends PaginateArgs {
+  @Field({ nullable: true })
+  where: ControllerWhereArgs;
 }

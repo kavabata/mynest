@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { NewRoomInput } from './dto/new-room.input';
+import { NewRoomInput } from './dto/rooms.args';
 import { PaginateArgs } from './dto/common.args';
 import { Room } from './models/room.model';
 

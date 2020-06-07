@@ -10,7 +10,7 @@ export class ControllerService {
   async create(data: NewControllerInput): Promise<DeviceController> {
 
     const { name, type, init, device } = data;
-    const inputData = { name, init, type, device_id: device}
+    const inputData = { name, init, type, device_id: device, devices: null}
     
     const d = prisma.controllers.create({ data: inputData });
     console.log('create: ', data, inputData);
@@ -19,19 +19,19 @@ export class ControllerService {
   }
 
   async findOneById(id: number): Promise<DeviceController> {
-    const d = prisma.controllers.findOne({ where: { id } });
+    const d = prisma.controllers.findOne({ where: { id }, include: { devices: true } });
     console.log('findOneById: ', id);
     d.then((a) => console.log('findOneById=>', a));
     return d as any;
   }
 
   async findAll(controllerArgs: ControllerArgs): Promise<DeviceController[]> {
-    const { skip, take, device, mode, type } = controllerArgs;
-    const d = prisma.controllers.findMany({ skip, take, where: { 
-      device_id: device,
-      mode_id: mode,
-      type 
-    } });
+    const d = prisma.controllers.findMany({
+      ...controllerArgs,
+      include: {
+        devices: true
+      }
+    });
 
     console.log('findAll: ', controllerArgs);
     d.then((a) => console.log('findAll=>', a));

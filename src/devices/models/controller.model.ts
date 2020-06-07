@@ -12,7 +12,7 @@ export class DeviceController {
   device_id: string;
 
   @Field({ nullable: true })
-  device: Device;
+  devices: Device;
 
   @Field({ nullable: true })
   mode_id: string;

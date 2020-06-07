@@ -9,13 +9,18 @@ datasource db {
 
 model controllers {
   controller String?
-  device_id  Int?
+  device_id  Int
   id         Int     @default(autoincrement()) @id
   init       Float   @default(0.0)
-  mode_id    Int     @default(1)
+  mode_id    Int?    @default(1)
   name       String?
   state      Int?    @default(0)
   type       Int     @default(0)
+  devices    devices @relation(fields: [device_id], references: [id])
+  modes      modes?  @relation(fields: [mode_id], references: [id])
+
+  @@index([device_id], name: "device")
+  @@index([mode_id], name: "mode")
 }
 
 model controllers_states {
@@ -29,17 +34,19 @@ model controllers_states {
 }
 
 model devices {
-  created DateTime?
-  id      Int       @default(autoincrement()) @id
-  ip      String?
-  key     String?
-  name    String?
-  status  Int       @default(0)
+  created     DateTime?
+  id          Int           @default(autoincrement()) @id
+  ip          String?
+  key         String?
+  name        String?
+  status      Int           @default(0)
+  controllers controllers[]
 }
 
 model modes {
-  id   Int     @default(autoincrement()) @id
-  name String?
+  id          Int           @default(autoincrement()) @id
+  name        String?
+  controllers controllers[]
 }
 
 model rooms {

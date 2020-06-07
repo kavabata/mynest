@@ -22,8 +22,8 @@ export class ControllerResolver {
   }
 
   @Query(returns => [DeviceController])
-  controllers(@Args() contollersArgs: ControllerArgs): Promise<DeviceController[]> {
-    return this.controllerService.findAll(contollersArgs);
+  controllers(@Args() contollersArgsData: ControllerArgs): Promise<DeviceController[]> {
+    return this.controllerService.findAll(contollersArgsData);
   }
 
   @Mutation(returns => DeviceController)
