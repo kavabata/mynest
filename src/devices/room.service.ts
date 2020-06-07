@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { NewRoomInput } from './dto/new-room.input';
-import { DevicesArgs } from './dto/devices.args';
+import { PaginateArgs } from './dto/paginate.args';
 import { Room } from './models/room.model';
 
 import { PrismaClient } from '@prisma/client';
@@ -12,7 +12,7 @@ export class RoomService {
     return prisma.rooms.create({ data }) as any;
   }
 
-  async findAll(roomsArgs: DevicesArgs): Promise<Room[]> {
+  async findAll(roomsArgs: PaginateArgs): Promise<Room[]> {
     return prisma.rooms.findMany() as any; // @TODO: args here
   }
 

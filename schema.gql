@@ -7,7 +7,15 @@ type Device {
   name: String!
   key: String
   ip: String
+  status: DeviceStatus!
   created: Date
+}
+
+enum DeviceStatus {
+  ONBOARD
+  ACTIVE
+  INACTIVE
+  DELETED
 }
 
 """Date custom scalar type"""
@@ -27,7 +35,7 @@ type Room {
 
 type Query {
   device(id: Float!): Device!
-  devices(skip: Int = 0, take: Int = 25): [Device!]!
+  devices(skip: Int = 0, take: Int = 25, status: DeviceStatus): [Device!]!
   rooms(skip: Int = 0, take: Int = 25): [Room!]!
 }
 

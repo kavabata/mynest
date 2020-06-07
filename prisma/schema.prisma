@@ -32,7 +32,7 @@ model devices {
   ip      String?
   key     String?
   name    String?
-  status  String?
+  status  Int       @default(0)
 }
 
 model modes {

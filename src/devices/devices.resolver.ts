@@ -1,8 +1,8 @@
 import { NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'apollo-server-express';
-import { NewDeviceInput } from './dto/new-device.input';
-import { DevicesArgs } from './dto/devices.args';
+// import { NewDeviceInput } from './dto/new-device.input';
+import { DevicesArgs, NewDeviceInput } from './dto/devices.args';
 import { Device } from './models/device.model';
 import { DevicesService } from './devices.service';
 

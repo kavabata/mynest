@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { NewDeviceInput } from './dto/new-device.input';
-import { DevicesArgs } from './dto/devices.args';
+import { DevicesArgs, NewDeviceInput, DeviceStatus } from './dto/devices.args';
 import { Device } from './models/device.model';
 
 import { PrismaClient } from '@prisma/client';
@@ -8,14 +7,8 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class DevicesService {
-  /**
-   * MOCK
-   * Put some real business logic here
-   * Left for demonstration purposes
-   */
-
-  async create(data: NewDeviceInput): Promise<Device> {///
-    const d = prisma.devices.create({ data: { ...data, status: 'ONBOARD' } });
+  async create(data: NewDeviceInput): Promise<Device> {
+    const d = prisma.devices.create({ data: { ...data, status: DeviceStatus.ONBOARD } });
     console.log('create: ', data);
     d.then((a) => console.log('create=>', a));
     return d as any;
@@ -29,7 +22,9 @@ export class DevicesService {
   }
 
   async findAll(devicesArgs: DevicesArgs): Promise<Device[]> {
-    const d = prisma.devices.findMany(devicesArgs);
+    const { skip, take, status } = devicesArgs;
+
+    const d = prisma.devices.findMany({ skip, take, where: { status } });
     console.log('findAll: ', devicesArgs);
     d.then((a) => console.log('findAll=>', a));
     return d as any;
@@ -41,7 +36,7 @@ export class DevicesService {
       await prisma.devices.delete({ where: { id } });
     } else {
       console.log('deleted: ', id);
-      await prisma.devices.update({ where: { id }, data: { status: 'DELETED' }});
+      await prisma.devices.update({ where: { id }, data: { status: DeviceStatus.DELETED }});
     }
     return true;
   }

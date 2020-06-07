@@ -2,7 +2,7 @@ import { NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'apollo-server-express';
 import { NewRoomInput } from './dto/new-room.input';
-import { DevicesArgs } from './dto/devices.args';
+import { PaginateArgs } from './dto/paginate.args';
 import { Room } from './models/room.model';
 import { RoomService } from './room.service';
 
@@ -13,7 +13,7 @@ export class RoolResolver {
   constructor(private readonly roomService: RoomService) {}
 
   @Query(returns => [Room])
-  rooms(@Args() roomsArgs: DevicesArgs): Promise<Room[]> {
+  rooms(@Args() roomsArgs: PaginateArgs): Promise<Room[]> {
     return this.roomService.findAll(roomsArgs);
   }
 
@@ -30,9 +30,4 @@ export class RoolResolver {
   async removeRoom(@Args('id') id: number) {
     return this.roomService.remove(id);
   }
-
-  // @Subscription(returns => Device)
-  // deviceAdded() {
-  //   return pubSub.asyncIterator('deviceAdded');
-  // }
 }

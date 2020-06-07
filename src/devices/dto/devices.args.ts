@@ -1,14 +1,32 @@
-import { ArgsType, Field, Int } from '@nestjs/graphql';
-import { Max, Min } from 'class-validator';
+import { ArgsType, Field, InputType, registerEnumType } from '@nestjs/graphql';
+import { IsOptional, Length, MaxLength } from 'class-validator';
+import { PaginateArgs } from './paginate.args';
+
+export enum DeviceStatus {
+  ONBOARD,
+  ACTIVE,
+  INACTIVE,
+  DELETED,
+}
+
+registerEnumType(DeviceStatus, {
+  name: 'DeviceStatus',
+});
+
+@InputType()
+export class NewDeviceInput {
+  @Field()
+  @MaxLength(30)
+  name: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @Length(30, 255)
+  key: string;
+}
 
 @ArgsType()
-export class DevicesArgs {
-  @Field(type => Int)
-  @Min(0)
-  skip: number = 0;
-
-  @Field(type => Int)
-  @Min(1)
-  @Max(50)
-  take: number = 25;
+export class DevicesArgs extends PaginateArgs {
+  @Field(type => DeviceStatus, { nullable: true })
+  status: DeviceStatus
 }
