@@ -8,7 +8,7 @@ npm install
 
 ## DB alter
 
-npx prisma introspective
+npx prisma introspect
 npx prisma generate
 
 ## License

@@ -1,6 +1,6 @@
 import { ArgsType, Field, InputType, registerEnumType } from '@nestjs/graphql';
 import { IsOptional, Length, MaxLength } from 'class-validator';
-import { PaginateArgs } from './paginate.args';
+import { PaginateArgs } from './common.args';
 
 export enum DeviceStatus {
   ONBOARD,

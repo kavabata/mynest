@@ -8,12 +8,14 @@ datasource db {
 }
 
 model controllers {
-  controller         String?
-  controller_default Float?
-  device_id          Int?
-  id                 Int     @default(autoincrement()) @id
-  mode_id            Int     @default(1)
-  name               String?
+  controller String?
+  device_id  Int?
+  id         Int     @default(autoincrement()) @id
+  init       Float   @default(0.0)
+  mode_id    Int     @default(1)
+  name       String?
+  state      Int?    @default(0)
+  type       Int     @default(0)
 }
 
 model controllers_states {

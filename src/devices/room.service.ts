@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { NewRoomInput } from './dto/new-room.input';
-import { PaginateArgs } from './dto/paginate.args';
+import { PaginateArgs } from './dto/common.args';
 import { Room } from './models/room.model';
 
 import { PrismaClient } from '@prisma/client';

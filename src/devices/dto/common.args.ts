@@ -3,7 +3,7 @@ import { Max, Min } from 'class-validator';
 
 @ArgsType()
 export class PaginateArgs {
-  @Field(type => Int)
+  @Field()
   @Min(0)
   skip: number = 0;
 

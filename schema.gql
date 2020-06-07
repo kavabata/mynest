@@ -33,10 +33,37 @@ type Room {
   mode: Mode
 }
 
+type DeviceController {
+  id: ID!
+  device_id: String!
+  device: Device
+  mode_id: String
+  mode: Mode
+  type: ControllerType!
+  name: String!
+  init: String!
+  state: ControllerState!
+}
+
+enum ControllerType {
+  SWITCH
+  SWITCH2
+  DIMMER
+}
+
+enum ControllerState {
+  DISABLED
+  ENABLED
+  INACTIVE
+  DELETED
+}
+
 type Query {
   device(id: Float!): Device!
-  devices(skip: Int = 0, take: Int = 25, status: DeviceStatus): [Device!]!
-  rooms(skip: Int = 0, take: Int = 25): [Room!]!
+  devices(skip: Float = 0, take: Int = 25, status: DeviceStatus): [Device!]!
+  rooms(skip: Float = 0, take: Int = 25): [Room!]!
+  controller(id: Float!): DeviceController!
+  controllers(skip: Float = 0, take: Int = 25, state: ControllerState, type: ControllerType, mode: Float, device: Float): [DeviceController!]!
 }
 
 type Mutation {
@@ -44,6 +71,8 @@ type Mutation {
   removeDevice(force: Boolean!, id: Float!): Boolean!
   addRoom(newRoomData: NewRoomInput!): Room!
   removeRoom(id: Float!): Boolean!
+  addController(newControllerData: NewControllerInput!): DeviceController!
+  removeController(id: Float!): Boolean!
 }
 
 input NewDeviceInput {
@@ -53,6 +82,13 @@ input NewDeviceInput {
 
 input NewRoomInput {
   name: String!
+}
+
+input NewControllerInput {
+  name: String!
+  type: ControllerType
+  init: Float!
+  device: Float!
 }
 
 type Subscription {

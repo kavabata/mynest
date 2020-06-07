@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Device } from './device.model';
 import { Mode } from './mode.model';
-
+import { ControllerType, ControllerState } from '../dto/controllers.args';
 
 @ObjectType()
 export class DeviceController {
@@ -20,12 +20,15 @@ export class DeviceController {
   @Field({ nullable: true })
   mode: Mode;
 
-  @Field()
-  controller: string;
+  @Field(type => ControllerType)
+  type: ControllerType;
 
   @Field()
   name: string;
 
   @Field()
-  controller_default: string;
+  init: string;
+
+  @Field(type => ControllerState)
+  state: ControllerState;
 }

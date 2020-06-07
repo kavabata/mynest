@@ -2,7 +2,7 @@ import { NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'apollo-server-express';
 import { NewRoomInput } from './dto/new-room.input';
-import { PaginateArgs } from './dto/paginate.args';
+import { PaginateArgs } from './dto/common.args';
 import { Room } from './models/room.model';
 import { RoomService } from './room.service';
 
