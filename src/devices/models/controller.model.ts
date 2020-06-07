@@ -18,7 +18,7 @@ export class DeviceController {
   mode_id: string;
 
   @Field({ nullable: true })
-  mode: Mode;
+  modes: Mode;
 
   @Field(type => ControllerType)
   type: ControllerType;

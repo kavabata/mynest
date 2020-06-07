@@ -19,7 +19,10 @@ export class ControllerService {
   }
 
   async findOneById(id: number): Promise<DeviceController> {
-    const d = prisma.controllers.findOne({ where: { id }, include: { devices: true } });
+    const d = prisma.controllers.findOne({ 
+      where: { id }, 
+      include: { devices: true, modes: true }
+    });
     console.log('findOneById: ', id);
     d.then((a) => console.log('findOneById=>', a));
     return d as any;
@@ -29,7 +32,8 @@ export class ControllerService {
     const d = prisma.controllers.findMany({
       ...controllerArgs,
       include: {
-        devices: true
+        devices: true,
+        modes: true
       }
     });
 

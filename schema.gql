@@ -38,7 +38,7 @@ type DeviceController {
   device_id: String!
   devices: Device
   mode_id: String
-  mode: Mode
+  modes: Mode
   type: ControllerType!
   name: String!
   init: String!
