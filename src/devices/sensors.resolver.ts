@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'apollo-server-express';
-import { SensorArgs, SensorType, NewSensorInput, NewSensorState } from './dto/sensors.args';
+import { SensorArgs, SensorType, NewSensorInput, NewSensorState } from './args/sensors.args';
 import { Sensor } from './models/sensor.model';
 import { SensorService } from './sensors.service';
 

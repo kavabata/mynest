@@ -10,14 +10,15 @@ datasource db {
 model controllers {
   controller String?
   device_id  Int
-  id         Int     @default(autoincrement()) @id
-  init       Float   @default(0.0)
-  mode_id    Int?    @default(1)
+  id         Int         @default(autoincrement()) @id
+  init       Float       @default(0.0)
+  mode_id    Int?        @default(1)
   name       String?
-  state      Int?    @default(0)
-  type       Int     @default(0)
-  devices    devices @relation(fields: [device_id], references: [id])
-  modes      modes?  @relation(fields: [mode_id], references: [id])
+  state      Int?        @default(0)
+  type       Int         @default(0)
+  devices    devices     @relation(fields: [device_id], references: [id])
+  modes      modes?      @relation(fields: [mode_id], references: [id])
+  scenarios  scenarios[]
 
   @@index([device_id], name: "controllerDevice")
   @@index([mode_id], name: "controllerMode")
@@ -48,6 +49,7 @@ model modes {
   id          Int           @default(autoincrement()) @id
   name        String?
   controllers controllers[]
+  scenarios   scenarios[]
 }
 
 model rooms {
@@ -65,18 +67,26 @@ model rooms_devices {
 }
 
 model scenarios {
-  controller_delay Int?
-  controller_id    Int?
+  controller_delay Int         @default(0)
+  controller_id    Int
   controller_value Int?
-  id               Int    @default(autoincrement()) @id
-  mode_id          Int?
+  id               Int         @default(autoincrement()) @id
+  mode_id          Int
   sensor_end       Float?
-  sensor_id        Int?
+  sensor_id        Int
   sensor_start     Float?
-  sort_order       Int?
+  sort_order       Int         @default(0)
+  controllers      controllers @relation(fields: [controller_id], references: [id])
+  modes            modes       @relation(fields: [mode_id], references: [id])
+  sensors          sensors     @relation(fields: [sensor_id], references: [id])
+
+  @@index([controller_id], name: "scenarioController")
+  @@index([mode_id], name: "scenarioMode")
+  @@index([sensor_id], name: "scenarioSensor")
 }
 
 model sensors {
+  created        DateTime?
   device_id      Int?
   enum_type      String?
   id             Int              @default(autoincrement()) @id
@@ -87,6 +97,7 @@ model sensors {
   updated        DateTime?
   devices        devices?         @relation(fields: [device_id], references: [id])
   rooms          rooms?           @relation(fields: [room_id], references: [id])
+  scenarios      scenarios[]
   sensors_states sensors_states[]
 
   @@index([device_id], name: "sensorDevice")

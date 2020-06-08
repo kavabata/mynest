@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DevicesArgs, NewDeviceInput, DeviceStatus } from './dto/devices.args';
+import { DevicesArgs, NewDeviceInput, DeviceStatus } from './args/devices.args';
 import { Device } from './models/device.model';
 
 import { PrismaClient } from '@prisma/client';

@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { DeviceStatus } from '../dto/devices.args'
+import { DeviceStatus } from '../args/devices.args'
 
 @ObjectType()
 export class Device {

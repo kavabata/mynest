@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Device } from './device.model';
 import { Mode } from './mode.model';
-import { ControllerType, ControllerState } from '../dto/controllers.args';
+import { ControllerType, ControllerState } from '../args/controllers.args';
 
 @ObjectType()
 export class DeviceController {

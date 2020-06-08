@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SensorArgs, NewSensorInput, NewSensorState, SensorType } from './dto/sensors.args';
+import { SensorArgs, NewSensorInput, NewSensorState, SensorType } from './args/sensors.args';
 import { Sensor } from './models/sensor.model';
 
 import { PrismaClient } from '@prisma/client';

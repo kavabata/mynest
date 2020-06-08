@@ -8,6 +8,8 @@ import { ControllerService } from './controller.service';
 import { ControllerResolver } from './controller.resolver';
 import { SensorService } from './sensors.service';
 import { SensorResolver } from './sensors.resolver';
+import { ScenariosService } from './scenarios.service';
+import { ScenarioResolver } from './scenarios.resolver';
 
 @Module({
   providers: [
@@ -15,8 +17,8 @@ import { SensorResolver } from './sensors.resolver';
     DevicesResolver, DevicesService,
     RoolResolver, RoomService,
     ControllerResolver, ControllerService,
-    SensorService, SensorResolver
-
+    SensorService, SensorResolver,
+    ScenariosService, ScenarioResolver
   ],
 })
 export class DevicesModule {}

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ControllerArgs, NewControllerInput } from './dto/controllers.args';
+import { ControllerArgs, NewControllerInput } from './args/controllers.args';
 import { DeviceController } from './models/controller.model';
 
 import { PrismaClient } from '@prisma/client';

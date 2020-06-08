@@ -5,40 +5,40 @@ import { DeviceController } from './controller.model';
 
 
 @ObjectType()
-export class Controller {
+export class Scenario {
   @Field(type => ID)
   id: string;
 
   @Field({ nullable: true })
-  mode_id: string;
+  mode_id: number;
 
   @Field({ nullable: true })
-  mode: Mode;
+  modes: Mode;
 
   @Field()
-  sensor_id: string;
+  sensor_id: number;
+
+  @Field()
+  sensors: Sensor;
 
   @Field({ nullable: true })
-  sensor: Sensor;
-
-  @Field()
-  sensor_start: string;
-
-  @Field()
-  sensor_end: string;
-
-  @Field()
-  contoller_id: string;
+  sensor_start: number;
 
   @Field({ nullable: true })
-  controller: DeviceController;
+  sensor_end: number;
 
   @Field()
-  contoller_value: string;
+  contoller_id: number;
 
   @Field()
-  contoller_delay: string;
+  controllers: DeviceController;
+
+  @Field({ nullable: true })
+  controller_value: number;
+
+  @Field({ nullable: true })
+  controller_delay: number;
 
   @Field()
-  sort_order: string;
+  sort_order: number;
 }

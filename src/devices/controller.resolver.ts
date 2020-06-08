@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'apollo-server-express';
-import { ControllerArgs, NewControllerInput, ControllerType, ControllerState } from './dto/controllers.args';
+import { ControllerArgs, NewControllerInput, ControllerType, ControllerState } from './args/controllers.args';
 import { DeviceController } from './models/controller.model';
 import { ControllerService } from './controller.service';
 

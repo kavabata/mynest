@@ -75,6 +75,21 @@ enum SensorType {
   HUMIDITY
 }
 
+type Scenario {
+  id: ID!
+  mode_id: Float
+  modes: Mode
+  sensor_id: Float!
+  sensors: Sensor!
+  sensor_start: Float
+  sensor_end: Float
+  contoller_id: Float!
+  controllers: DeviceController!
+  controller_value: Float
+  controller_delay: Float
+  sort_order: Float!
+}
+
 type Query {
   device(id: Float!): Device!
   devices(skip: Float = 0, take: Int = 25, status: DeviceStatus): [Device!]!
@@ -83,6 +98,8 @@ type Query {
   controllers(skip: Float = 0, take: Int = 25, where: ControllerWhereArgs): [DeviceController!]!
   sensor(id: Float!): Sensor!
   sensors(skip: Float = 0, take: Int = 25, where: SensorWhereArgs): [Sensor!]!
+  scenario(id: Float!): Scenario!
+  scenarios(skip: Float = 0, take: Int = 25, where: ScenariosWhereArgs): [Scenario!]!
 }
 
 input ControllerWhereArgs {
@@ -98,6 +115,12 @@ input SensorWhereArgs {
   device_id: Float
 }
 
+input ScenariosWhereArgs {
+  mode_id: Float
+  sensor_id: Float
+  controller_id: Float
+}
+
 type Mutation {
   addDevice(newDeviceData: NewDeviceInput!): Device!
   removeDevice(force: Boolean!, id: Float!): Boolean!
@@ -108,6 +131,8 @@ type Mutation {
   addSensor(newSensorData: NewSensorInput!): Sensor!
   addSensorState(type: SensorType!, key: String!, value: Float!): Sensor!
   removeSensor(id: Float!): Boolean!
+  addScenario(newScenarioData: NewScenarioInput!): Scenario!
+  removeScenario(id: Float!): Boolean!
 }
 
 input NewDeviceInput {
@@ -131,6 +156,17 @@ input NewSensorInput {
   sensor_delay: Float!
   device: Float!
   room: Float!
+}
+
+input NewScenarioInput {
+  mode: Float!
+  sensor: Float!
+  sensor_start: Float!
+  sensor_end: Float!
+  controller: Float!
+  controller_value: Float!
+  controller_delay: Float!
+  sort_order: Float!
 }
 
 type Subscription {

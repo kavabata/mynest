@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Device } from './device.model';
 import { Room } from './room.model';
-import { SensorType } from '../dto/sensors.args';
+import { SensorType } from '../args/sensors.args';
 
 
 @ObjectType()
@@ -22,5 +22,5 @@ export class Sensor {
   sensor_delay: string;
 
   @Field({ nullable: true })
-  state: string;
+  state?: string;
 }
