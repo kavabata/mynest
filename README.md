@@ -8,8 +8,7 @@ npm install
 
 ## DB alter
 
-npx prisma introspect
-npx prisma generate
+npx prisma introspect && npx prisma generate
 
 ## License
   Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).

@@ -53,10 +53,16 @@ model modes {
 }
 
 model rooms {
+  height       Float?
   id           Int       @default(autoincrement()) @id
+  left         Float?
+  light        Int?      @default(0)
   mode_id      Int?
   mode_updated DateTime?
   name         String?
+  temperature  Float?
+  top          Float?
+  width        Float?
   sensors      sensors[]
 }
 

@@ -26,11 +26,21 @@ type Mode {
   name: String!
 }
 
+type PositionObject {
+  top: Float
+  left: Float
+  width: Float
+  height: Float
+}
+
 type Room {
   id: ID!
   name: String!
   mode_id: String
   mode: Mode
+  position: PositionObject
+  temperature: String
+  light: Float
 }
 
 type DeviceController {
@@ -126,6 +136,7 @@ type Mutation {
   removeDevice(force: Boolean!, id: Float!): Boolean!
   addRoom(newRoomData: NewRoomInput!): Room!
   removeRoom(id: Float!): Boolean!
+  setRoomPosition(roomPosition: PositionInput!, id: ID!): Boolean!
   addController(newControllerData: NewControllerInput!): DeviceController!
   removeController(id: Float!): Boolean!
   addSensor(newSensorData: NewSensorInput!): Sensor!
@@ -142,6 +153,13 @@ input NewDeviceInput {
 
 input NewRoomInput {
   name: String!
+}
+
+input PositionInput {
+  top: Float
+  left: Float
+  width: Float
+  height: Float
 }
 
 input NewControllerInput {

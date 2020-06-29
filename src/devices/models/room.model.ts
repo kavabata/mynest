@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Device } from './device.model';
+// import { Device } from './device.model';
 import { Mode } from './mode.model';
+import { PositionObject } from './position.model';
 
 @ObjectType()
 export class Room {
@@ -18,4 +19,13 @@ export class Room {
 
   // @Field({ nullable: true })
   // devices: [Device];
+
+  @Field({ nullable: true })
+  position: PositionObject;
+
+  @Field({ nullable: true })
+  temperature: string;
+
+  @Field({ nullable: true })
+  light: number;
 }
