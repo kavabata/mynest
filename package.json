@@ -34,7 +34,7 @@
     "dotenv": "^8.2.0",
     "graphql": "^15.0.0",
     "graphql-tools": "^5.0.0",
-    "knex": "^0.21.1",
+    "knex": "^2.4.0",
     "lodash": "^4.17.15",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
